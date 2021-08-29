@@ -27,6 +27,26 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+      <!-- Firebase Configuration -->
+      <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyAbHCq53KLlMy5esiK1Mxge6l2D6gyl4lo",
+          authDomain: "rafflesys.firebaseapp.com",
+          databaseURL: "https://rafflesys.firebaseio.com",
+          projectId: "rafflesys",
+          storageBucket: "rafflesys.appspot.com",
+          messagingSenderId: "689674686463",
+          appId: "1:689674686463:web:3a465c3fa87f9a43b5e1ca",
+          measurementId: "G-FKZBR9JPP6",
+        };
+  
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
