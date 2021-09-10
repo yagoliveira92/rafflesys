@@ -8,6 +8,8 @@ part 'home_page_state.dart';
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
 
+  List<NameModel> selectedNames = [];
+
   Future<void> getAllNames() async {
     final namesDocuments =
         await FirebaseFirestore.instance.collection('nomes').get();
@@ -16,10 +18,18 @@ class HomePageCubit extends Cubit<HomePageState> {
         (snapshot) => NameModel.fromMap(snapshot.data(), snapshot.id),
       ),
     ).toList();
-    print(listNames.length);
     emit(HomePageSucesso(listName: listNames));
     try {} catch (e) {
       emit(HomePageError());
+    }
+  }
+
+  Future<void> setSelectedName(
+      {required bool add, required NameModel nameModel}) async {
+    if (add) {
+      this.selectedNames.add(nameModel);
+    } else {
+      this.selectedNames.remove(nameModel);
     }
   }
 }

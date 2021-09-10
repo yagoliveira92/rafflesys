@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rafflesys_hugo/app/features/home_page/controller/home_page_cubit.dart';
+import 'package:rafflesys_hugo/app/features/home_page/presentation/widgets/list_name_widget.dart';
 import 'package:rafflesys_hugo/app/features/home_page/presentation/widgets/sliver_appbar_widget.dart';
 
 class HomePageScreen extends StatelessWidget {
@@ -46,7 +47,17 @@ class HomePageScreen extends StatelessWidget {
                         ),
                         itemCount: state.listName.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Text(state.listName[index].name);
+                          return NameItemWidget(
+                            key: Key(state.listName[index].id),
+                            nameModel: state.listName[index],
+                            isSelected: (bool value) async {
+                              await context
+                                  .read<HomePageCubit>()
+                                  .setSelectedName(
+                                      add: value,
+                                      nameModel: state.listName[index]);
+                            },
+                          );
                         },
                       ),
                     ),
