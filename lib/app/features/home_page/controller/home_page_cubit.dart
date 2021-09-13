@@ -9,6 +9,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
 
   List<NameModel> selectedNames = [];
+  List<NameModel> listNames = [];
 
   Future<void> getAllNames() async {
     final namesDocuments =
@@ -18,7 +19,13 @@ class HomePageCubit extends Cubit<HomePageState> {
         (snapshot) => NameModel.fromMap(snapshot.data(), snapshot.id),
       ),
     ).toList();
-    emit(HomePageSucesso(listName: listNames));
+    this.listNames = listNames;
+    emit(
+      HomePageSucesso(
+        listName: this.listNames,
+        selectedNames: this.selectedNames,
+      ),
+    );
     try {} catch (e) {
       emit(HomePageError());
     }
@@ -31,5 +38,10 @@ class HomePageCubit extends Cubit<HomePageState> {
     } else {
       this.selectedNames.remove(nameModel);
     }
+
+    emit(HomePageSucesso(
+      listName: this.listNames,
+      selectedNames: this.selectedNames,
+    ));
   }
 }

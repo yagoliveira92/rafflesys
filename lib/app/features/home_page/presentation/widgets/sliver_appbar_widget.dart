@@ -31,7 +31,14 @@ class _SliverAppbarWidgetState extends State<SliverAppbarWidget> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [Colors.white, Colors.transparent],
-            ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+            ).createShader(
+              Rect.fromLTRB(
+                0,
+                0,
+                rect.width,
+                rect.height,
+              ),
+            );
           },
           blendMode: BlendMode.dstIn,
           child: Image.asset(

@@ -29,11 +29,23 @@ class _NameItemWidgetState extends State<NameItemWidget> {
         children: <Widget>[
           SizedBox.square(
             child: Center(
-              child: Text(
-                widget.nameModel!.name,
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
+                child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.child_care,
+                  color: isSelected ? Colors.blue[900] : Colors.black,
+                ),
+                Text(
+                  widget.nameModel!.name,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: isSelected ? Colors.blue[900] : Colors.black,
+                  ),
+                ),
+              ],
+            )),
           ),
           isSelected
               ? Align(
