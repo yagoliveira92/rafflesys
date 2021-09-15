@@ -11,10 +11,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Rifa de Fralda do Hugo!',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: theme.copyWith(
+        colorScheme: theme.colorScheme.copyWith(
+          primary: Colors.blue,
+          secondary: Colors.white,
+        ),
       ),
       initialRoute: '/',
       routes: routers,

@@ -11,7 +11,6 @@ class HomePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Virou setstate');
     return BlocProvider<HomePageCubit>(
       create: (context) => HomePageCubit()..getAllNames(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
@@ -47,16 +46,21 @@ class HomePageScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 18.0),
                 ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(),
+                  style: ElevatedButton.styleFrom(
+                    primary: state.selectedNames.isNotEmpty
+                        ? Colors.blue
+                        : Colors.grey,
+                  ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RegisterScreen(
-                          selectedNames: state.selectedNames,
+                    if (state.selectedNames.isNotEmpty)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreen(
+                            selectedNames: state.selectedNames,
+                          ),
                         ),
-                      ),
-                    );
+                      );
                   },
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -108,13 +112,28 @@ class HomePageScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(10.0),
-              child: Text(
-                'Escolha um ou mais nomes abaixo, a forma de pagamento '
-                'e é só cruzar os dedos!',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+              child: Column(
+                children: [
+                  Text(
+                    'O valor da rifa equivale a um pacote de fralda, que pode'
+                    ' ser pago com o mesmo ou com dinheiro. Você escolhe =)',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text(
+                    'Escolha um ou mais nomes abaixo, a forma de pagamento '
+                    'e é só cruzar os dedos!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -124,8 +143,10 @@ class HomePageScreen extends StatelessWidget {
                 function: context.read<HomePageCubit>().setSelectedName),
           ),
           SliverToBoxAdapter(
-            child: Text('Será que exibe aqui?'),
-          ),
+            child: SizedBox(
+              height: 50.0,
+            ),
+          )
         ],
       );
     }

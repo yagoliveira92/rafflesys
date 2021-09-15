@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:rafflesys_hugo/app/features/home_page/models/name_model.dart';
 
 class NameItemWidget extends StatefulWidget {
-  const NameItemWidget({this.nameModel, this.isSelected, Key? key})
-      : super(key: key);
+  const NameItemWidget({
+    this.nameModel,
+    this.isSelected,
+    Key? key,
+    this.onlyRead = false,
+  }) : super(key: key);
 
   final NameModel? nameModel;
-
+  final bool onlyRead;
   final ValueChanged<bool>? isSelected;
 
   @override
@@ -20,10 +24,12 @@ class _NameItemWidgetState extends State<NameItemWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-          widget.isSelected!(isSelected);
-        });
+        if (!widget.onlyRead) {
+          setState(() {
+            isSelected = !isSelected;
+            widget.isSelected!(isSelected);
+          });
+        }
       },
       child: Stack(
         children: <Widget>[
