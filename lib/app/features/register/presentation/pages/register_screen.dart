@@ -6,6 +6,7 @@ import 'package:rafflesys_hugo/app/features/home_page/presentation/widgets/name_
 import 'package:rafflesys_hugo/app/features/register/controller/register_cubit.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/pages/success_register_screen.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/widgets/form_register_widget.dart';
+import 'package:rafflesys_hugo/app/features/register/presentation/widgets/table_diaper_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({required this.selectedNames, Key? key}) : super(key: key);
@@ -34,16 +35,18 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider<RegisterCubit>(
-        create: (context) => RegisterCubit(),
+        create: (context) =>
+            RegisterCubit()..initRegister(listNames: this.selectedNames),
         child: BlocConsumer<RegisterCubit, RegisterState>(
           listener: (context, state) {
             if (state is RegisterSuccess) {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
                       SuccessRegisterScreen(nameParticipant: state.name),
                 ),
+                (r) => false,
               );
             }
           },
@@ -99,92 +102,21 @@ class RegisterScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                      margin: EdgeInsets.all(10.0),
-                      color: Colors.blue.withOpacity(0.15),
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'P',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'R\$20,00',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'M',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'R\$30,00',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'G',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'R\$40,00',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                    TableDiaperWidget(),
                     Text.rich(
                       TextSpan(
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
                         children: [
                           TextSpan(
                             text: 'Abaixo, preencha o formulário e '
                                 'o valor que deseja participar. '
                                 'O mesmo não pode ser menor do que',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                            ),
                           ),
                           TextSpan(
                             text: ' o menor valor de fralda da tabela.',
                             style: TextStyle(
-                              fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
                           )

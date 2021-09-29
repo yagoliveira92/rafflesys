@@ -64,6 +64,7 @@ class GridNamesWidget extends StatelessWidget {
                   itemCount: this.listName.length,
                   itemBuilder: (BuildContext context, int index) {
                     return NameItemWidget(
+                      unavaliable: this.listName[index].status,
                       key: Key(this.listName[index].id),
                       nameModel: this.listName[index],
                       isSelected: (bool value) async => function(

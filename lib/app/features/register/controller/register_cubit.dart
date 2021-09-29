@@ -10,7 +10,7 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
-  late List<NameModel> selectedNames;
+  List<NameModel> selectedNames = [];
 
   Future<void> initRegister({required List<NameModel> listNames}) async {
     this.selectedNames = listNames;
@@ -32,7 +32,16 @@ class RegisterCubit extends Cubit<RegisterState> {
         nome: name,
         nomesSelecionados: this.selectedNames,
         status: false);
+    await _updateSelectedNames(names: this.selectedNames);
     await participants.add(register.toMap());
     emit(RegisterSuccess(name: name));
+  }
+
+  Future<void> _updateSelectedNames({required List<NameModel> names}) async {
+    final allNames = FirebaseFirestore.instance.collection('nomes');
+
+    names.forEach((element) async {
+      await allNames.doc(element.id).update({'status': true});
+    });
   }
 }
