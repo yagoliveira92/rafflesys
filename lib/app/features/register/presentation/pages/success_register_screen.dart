@@ -94,11 +94,24 @@ class SuccessRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    'yagoliveira92@gmail.com',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+                  InkWell(
+                    onTap: () {
+                      Clipboard.setData(
+                              ClipboardData(text: 'yagoliveira92@gmail.com'))
+                          .then((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Chave copiada com sucesso!"),
+                          ),
+                        );
+                      });
+                    },
+                    child: Text(
+                      'yagoliveira92@gmail.com',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
                     ),
                   ),
                   SizedBox(

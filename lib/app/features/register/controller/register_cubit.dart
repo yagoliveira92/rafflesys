@@ -11,6 +11,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
   List<NameModel> selectedNames = [];
+  List<String> listNames = [];
 
   Future<void> initRegister({required List<NameModel> listNames}) async {
     this.selectedNames = listNames;
@@ -35,31 +36,32 @@ class RegisterCubit extends Cubit<RegisterState> {
         nome: name,
         nomesSelecionados: this.selectedNames,
         status: false);
-    await _updateSelectedNames(names: this.selectedNames);
-    await participants.add(register.toMap());
-    emit(RegisterSuccess(name: name));
+    final result = await _updateSelectedNames(names: this.selectedNames);
+    if (result) {
+      emit(
+        RegisterNameHasSelected(name: this.listNames),
+      );
+    } else {
+      await participants.add(register.toMap());
+      emit(RegisterSuccess(name: name));
+    }
   }
 
-  Future<void> _updateSelectedNames({required List<NameModel> names}) async {
+  Future<bool> _updateSelectedNames({required List<NameModel> names}) async {
     final allNames = FirebaseFirestore.instance.collection('nomes');
-    List<String> listNames = [];
 
-    names.forEach((element) async {
-      var nameObj = await allNames.doc(element.id).get();
+    for (var index in names) {
+      var nameObj = await allNames.doc(index.id).get();
       final mapDoc = nameObj.data();
       if (mapDoc != null) {
         var name = NameModel.fromMap(mapDoc, '');
         if (!name.status) {
-          await allNames.doc(element.id).update({'status': true});
+          await allNames.doc(index.id).update({'status': true});
         } else {
-          listNames.add(name.name);
+          this.listNames.add(index.name);
         }
       }
-    });
-    if (listNames.length > 0) {
-      emit(
-        RegisterNameHasSelected(name: listNames),
-      );
     }
+    return this.listNames.length > 0;
   }
 }
