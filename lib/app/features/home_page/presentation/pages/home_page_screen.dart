@@ -13,10 +13,7 @@ class HomePageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomePageCubit>(
       create: (context) => HomePageCubit()..getAllNames(),
-      child: BlocConsumer<HomePageCubit, HomePageState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      child: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           return Scaffold(
             bottomSheet: _bottomSheet(context, state),
