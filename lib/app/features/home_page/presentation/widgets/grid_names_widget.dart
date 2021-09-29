@@ -25,10 +25,6 @@ class GridNamesWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.4),
-                BlendMode.modulate,
-              ),
               repeat: ImageRepeat.repeat,
               image: AssetImage("assets/background_card.jpg"),
               fit: BoxFit.contain,
@@ -58,6 +54,7 @@ class GridNamesWidget extends StatelessWidget {
               Center(
                 child: GridView.builder(
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                   ),

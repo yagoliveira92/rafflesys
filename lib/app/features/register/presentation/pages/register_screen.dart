@@ -5,6 +5,7 @@ import 'package:rafflesys_hugo/app/features/home_page/models/name_model.dart';
 import 'package:rafflesys_hugo/app/features/home_page/presentation/widgets/name_item_widget.dart';
 import 'package:rafflesys_hugo/app/features/register/controller/register_cubit.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/pages/success_register_screen.dart';
+import 'package:rafflesys_hugo/app/features/register/presentation/widgets/alert_name_selected_widget.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/widgets/form_register_widget.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/widgets/table_diaper_widget.dart';
 
@@ -47,6 +48,14 @@ class RegisterScreen extends StatelessWidget {
                       SuccessRegisterScreen(nameParticipant: state.name),
                 ),
                 (r) => false,
+              );
+            }
+
+            if (state is RegisterNameHasSelected) {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) =>
+                    AlertNameSelected(names: state.name),
               );
             }
           },
@@ -124,7 +133,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.0,
+                      height: 35.0,
                     ),
                     FormRegisterWidget(
                       controllerEmail: _emailController,
@@ -143,22 +152,29 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: state is RegisterButtonAllow
+                        primary: state is RegisterButtonAllow ||
+                                state is RegisterLoading
                             ? Colors.blue
                             : Colors.grey,
                       ),
-                      onPressed: () => context
-                          .read<RegisterCubit>()
-                          .registerParticipant(
+                      onPressed: () {
+                        if (state is RegisterButtonAllow) {
+                          context.read<RegisterCubit>().registerParticipant(
                               name: _nameController.text,
                               email: _emailController.text,
-                              value: _valueController.text),
+                              value: _valueController.text);
+                        }
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Inscrever-se',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
+                        child: state is RegisterLoading
+                            ? CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : Text(
+                                'Inscrever-se',
+                                style: TextStyle(fontSize: 18.0),
+                              ),
                       ),
                     ),
                     SizedBox(

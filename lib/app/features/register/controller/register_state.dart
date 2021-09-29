@@ -9,6 +9,14 @@ class RegisterButtonAllow extends RegisterState {}
 
 class RegisterButtonDenied extends RegisterState {}
 
+class RegisterLoading extends RegisterState {}
+
+class RegisterNameHasSelected extends RegisterState {
+  RegisterNameHasSelected({required this.name});
+
+  final List<String> name;
+}
+
 class RegisterSuccess extends RegisterState {
   RegisterSuccess({
     required this.name,

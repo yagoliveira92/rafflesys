@@ -25,26 +25,9 @@ class _SliverAppbarWidgetState extends State<SliverAppbarWidget> {
             fontSize: 26,
           ),
         ),
-        background: ShaderMask(
-          shaderCallback: (rect) {
-            return LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.white, Colors.transparent],
-            ).createShader(
-              Rect.fromLTRB(
-                0,
-                0,
-                rect.width,
-                rect.height,
-              ),
-            );
-          },
-          blendMode: BlendMode.dstIn,
-          child: Image.asset(
-            'assets/bg_sliver.png',
-            fit: BoxFit.cover,
-          ),
+        background: Image.asset(
+          'assets/bg_sliver.png',
+          fit: BoxFit.cover,
         ),
       ),
     );

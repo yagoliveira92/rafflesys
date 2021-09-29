@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SuccessRegisterScreen extends StatelessWidget {
@@ -11,6 +12,8 @@ class SuccessRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _keyController =
+        TextEditingController(text: '1a80763a-57fd-44a1-a476-2209354c12e5');
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
@@ -59,6 +62,27 @@ class SuccessRegisterScreen extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
+                            text: 'Sua colaboração é muito importante para'
+                                ' a chegada do nosso pimpolho.'),
+                        TextSpan(
+                          text: ' De coração, obrigado.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      children: [
+                        TextSpan(
                             text: 'Agora basta escolher a forma de'
                                 ' pagamento abaixo e '),
                         TextSpan(
@@ -72,9 +96,51 @@ class SuccessRegisterScreen extends StatelessWidget {
                   ),
                   Text(
                     'yagoliveira92@gmail.com',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  )
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Container(
+                    height: 350.0,
+                    child: Image.asset('assets/pix_qrcode.jpeg'),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                    child: TextField(
+                      controller: _keyController,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            Clipboard.setData(
+                                    ClipboardData(text: _keyController.text))
+                                .then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Chave copiada com sucesso!"),
+                                ),
+                              );
+                            });
+                          },
+                          child: Icon(Icons.copy_all),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Container(
+                    height: 350.0,
+                    child: Image.asset('assets/picpay_qrcode.jpeg'),
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
                 ],
               ),
             ),

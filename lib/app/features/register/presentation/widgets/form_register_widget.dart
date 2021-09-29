@@ -55,7 +55,7 @@ class FormRegisterWidget extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: 10.0,
+            height: 15.0,
           ),
           TextFormField(
             controller: this.controllerEmail,
@@ -77,7 +77,7 @@ class FormRegisterWidget extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: 10.0,
+            height: 15.0,
           ),
           TextFormField(
             controller: this.controllerValor,
@@ -91,13 +91,14 @@ class FormRegisterWidget extends StatelessWidget {
               ),
             ),
             validator: (value) {
-              if (value != null && value.isNotEmpty) {
-                final parsedValue =
-                    double.tryParse(value.replaceAll(regexValue, ''));
-                if (parsedValue != null &&
-                    (parsedValue / 100 < (20.0 * this.numberNames))) {
+              final parsedValue =
+                  double.tryParse(value!.replaceAll(regexValue, ''));
+              if (parsedValue != null) {
+                if (parsedValue / 100 < (20.0 * this.numberNames)) {
                   return 'O valor não pode ser menor do que R\$${20.0 * this.numberNames}';
                 }
+              } else {
+                return 'Este campo é obrigatório';
               }
             },
             inputFormatters: <TextInputFormatter>[

@@ -19,6 +19,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   void validateField({required GlobalKey<FormState> key}) {
     if (key.currentState!.validate()) {
       emit(RegisterButtonAllow());
+    } else {
+      emit(RegisterButtonDenied());
     }
   }
 
@@ -26,6 +28,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       {required String name,
       required String email,
       required String value}) async {
+    emit(RegisterLoading());
     final participants = FirebaseFirestore.instance.collection('participantes');
     final register = RegisterModel(
         email: email,
@@ -39,9 +42,24 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> _updateSelectedNames({required List<NameModel> names}) async {
     final allNames = FirebaseFirestore.instance.collection('nomes');
+    List<String> listNames = [];
 
     names.forEach((element) async {
-      await allNames.doc(element.id).update({'status': true});
+      var nameObj = await allNames.doc(element.id).get();
+      final mapDoc = nameObj.data();
+      if (mapDoc != null) {
+        var name = NameModel.fromMap(mapDoc, '');
+        if (!name.status) {
+          await allNames.doc(element.id).update({'status': true});
+        } else {
+          listNames.add(name.name);
+        }
+      }
     });
+    if (listNames.length > 0) {
+      emit(
+        RegisterNameHasSelected(name: listNames),
+      );
+    }
   }
 }

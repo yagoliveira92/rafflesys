@@ -43,13 +43,21 @@ class _NameItemWidgetState extends State<NameItemWidget> {
                 children: [
                   Icon(
                     Icons.child_care,
-                    color: isSelected ? Colors.blue[900] : Colors.black,
+                    color: isSelected
+                        ? Colors.blue[900]
+                        : this.widget.unavaliable
+                            ? Colors.blueGrey
+                            : Colors.black,
                   ),
                   Text(
                     widget.nameModel!.name,
                     style: TextStyle(
                       fontSize: 15.0,
-                      color: isSelected ? Colors.blue[900] : Colors.black,
+                      color: isSelected
+                          ? Colors.blue[900]
+                          : this.widget.unavaliable
+                              ? Colors.blueGrey
+                              : Colors.black,
                     ),
                   ),
                   SizedBox(
