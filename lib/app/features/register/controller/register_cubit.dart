@@ -35,6 +35,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         email: email,
         nome: name,
         nomesSelecionados: this.selectedNames,
+        valor: value,
         status: false);
     final result = await _updateSelectedNames(names: this.selectedNames);
     if (result) {

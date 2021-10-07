@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafflesys_hugo/app/features/home_page/models/name_model.dart';
+import 'package:rafflesys_hugo/app/features/home_page/presentation/pages/home_page_screen.dart';
 import 'package:rafflesys_hugo/app/features/home_page/presentation/widgets/name_item_widget.dart';
 import 'package:rafflesys_hugo/app/features/register/controller/register_cubit.dart';
 import 'package:rafflesys_hugo/app/features/register/presentation/pages/success_register_screen.dart';
@@ -39,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
         create: (context) =>
             RegisterCubit()..initRegister(listNames: this.selectedNames),
         child: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is RegisterSuccess) {
               Navigator.pushAndRemoveUntil(
                 context,
@@ -52,10 +53,19 @@ class RegisterScreen extends StatelessWidget {
             }
 
             if (state is RegisterNameHasSelected) {
-              showDialog<String>(
+              await showDialog<String>(
+                barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) =>
                     AlertNameSelected(names: state.name),
+              ).then(
+                (value) => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePageScreen(),
+                  ),
+                  (r) => false,
+                ),
               );
             }
           },

@@ -9,11 +9,13 @@ class RegisterModel {
   String nome;
   List<NameModel> nomesSelecionados;
   bool status;
+  String valor;
   RegisterModel({
     required this.email,
     required this.nome,
     required this.nomesSelecionados,
     required this.status,
+    required this.valor,
   });
 
   RegisterModel copyWith({
@@ -21,12 +23,14 @@ class RegisterModel {
     String? nome,
     List<NameModel>? nomesSelecionados,
     bool? status,
+    String? valor,
   }) {
     return RegisterModel(
       email: email ?? this.email,
       nome: nome ?? this.nome,
       nomesSelecionados: nomesSelecionados ?? this.nomesSelecionados,
       status: status ?? this.status,
+      valor: valor ?? this.valor,
     );
   }
 
@@ -36,6 +40,7 @@ class RegisterModel {
       'nome': nome,
       'nomes_selecionados': nomesSelecionados.map((x) => x.toMap()).toList(),
       'status': false,
+      'valor': valor,
     };
   }
 
@@ -46,6 +51,7 @@ class RegisterModel {
       nomesSelecionados: List<NameModel>.from(
           map['nomesSelecionados']?.map((x) => NameModel.fromMap(x, ''))),
       status: map['status'],
+      valor: map['valor'],
     );
   }
 

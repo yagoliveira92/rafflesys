@@ -101,7 +101,7 @@ class SuccessRegisterScreen extends StatelessWidget {
                           .then((_) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text("Chave copiada com sucesso!"),
+                            content: Text("Email copiada com sucesso!"),
                           ),
                         );
                       });
@@ -115,11 +115,26 @@ class SuccessRegisterScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15.0,
+                    height: 25.0,
                   ),
-                  Container(
-                    height: 350.0,
-                    child: Image.asset('assets/pix_qrcode.jpeg'),
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      children: [
+                        TextSpan(text: 'Copie a chave pix '),
+                        TextSpan(
+                            text: 'clicando no botão ao lado:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    height: 15.0,
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 50.0, right: 50.0),
@@ -134,7 +149,8 @@ class SuccessRegisterScreen extends StatelessWidget {
                                 .then((_) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Chave copiada com sucesso!"),
+                                  content:
+                                      Text("Chave Pix copiada com sucesso!"),
                                 ),
                               );
                             });
@@ -149,7 +165,42 @@ class SuccessRegisterScreen extends StatelessWidget {
                   ),
                   Container(
                     height: 350.0,
-                    child: Image.asset('assets/picpay_qrcode.jpeg'),
+                    child: Image.asset('assets/pix_qrcode.jpeg'),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      children: [
+                        TextSpan(text: 'Para copiar o PicPay basta '),
+                        TextSpan(
+                            text: 'clicar na imagem:',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(text: 'yagoliveira92'))
+                          .then((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("PicPay copiado com sucesso!"),
+                          ),
+                        );
+                      });
+                    },
+                    child: Container(
+                      height: 350.0,
+                      child: Image.asset('assets/picpay_qrcode.jpeg'),
+                    ),
                   ),
                   SizedBox(
                     height: 30.0,

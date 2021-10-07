@@ -1,11 +1,11 @@
 {
-    "name": "rafflesys_hugo",
-    "short_name": "rafflesys_hugo",
+    "name": "Rifa de Fralda do Hugo",
+    "short_name": "Rifa de Fralda do Hugo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Sistema de Rifa utilizando Firebase",
+    "description": "Rifa de Fralda do Hugo",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
