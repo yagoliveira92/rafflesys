@@ -33,7 +33,7 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
-web/index.html
+web/firebase.js
 
 # Symbolication related
 app.*.symbols

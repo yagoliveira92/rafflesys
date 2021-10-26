@@ -107,6 +107,21 @@ class HomePageScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                'Imagem meramente ilustrativa',
+                style: TextStyle(
+                  fontSize: 13.0,
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 15.0,
+            ),
+          ),
+          SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
